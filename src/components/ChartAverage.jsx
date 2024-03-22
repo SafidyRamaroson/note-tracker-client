@@ -29,7 +29,7 @@ function ChartAverage({data}) {
                         'Average : [16-20]',
                         ],
                     datasets: [{
-                        label: 'Nombre d\'élèves',
+                        label: 'Number of Students:',
                         data: averageData,
                         backgroundColor: [
                             'rgb(255, 99, 132)',
@@ -48,7 +48,7 @@ function ChartAverage({data}) {
     return (
         <>
         <Typography variant="h4" color="primary">Average Note Chart</Typography>
-        <canvas id="chart" style={{display:"flex",alignSelf:"center",width:"500px",height:"500px"}}></canvas>
+        <canvas id="chart" style={{display:"flex",alignItems:"center"}}></canvas>
         </>
     );
 }

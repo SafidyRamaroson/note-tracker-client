@@ -70,23 +70,23 @@ function Dashboard(){
                 <Box style={{paddingLeft:"25px"}}>
                     <Typography variant="h4" color="primary">Student statistics</Typography>
                 </Box>
-                <Box style={{display:"flex",flexDirection:"row",justifyContent:"space-around",alignItems:"center",padding:"25px"}}>
-                    <StatsNotePaper average={studentMaxAverage} type="Student Max Average" backgroundColor="rgb(253, 212, 151)"/>
-                    <StatsNotePaper average={studentMinAverage} type="Student Min Average" backgroundColor="rgb(54, 162, 235)"/>
-                    <StatsNotePaper average={classAverage} type="Class Average" backgroundColor="#9dfad3"/>
-                </Box>
-                <Box  style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly",alignContent:"center",padding:"10px",height:"400px",marginTop:"20px"}}>
-                    <Paper elevation={0} style={{width:"350px",padding:"8px 12px",borderRadius:"2px",display:"flex",justifyContent:"space-evenly",flexDirection:"column"}}>
-                        <Paper elevation={5} style={{height:"130px",margin:"15px",backgroundColor:"rgb(255, 99, 132)",padding:"5px"}}>
-                            <Typography variant="h5" component="h2" style={{textAlign:"center",marginTop:"15px"}}>Number of repeating students <br/> <span style={{color:"#6b2222"}}>{nbPassant}</span></Typography>
-                        </Paper>
-                        <Paper elevation={5} style={{height:"130px",margin:"15px",padding:"5px"}}>
-                            <Typography  variant="h5" component="h2" style={{textAlign:"center",marginTop:"15px"}}>Number of students admitted <br/> <span style={{color:"#6b2222 !important"}}>{nbRedoublant}</span></Typography>
-                        </Paper>
-                    </Paper>
-                    <Paper elevation={12} style={{width:"350px",padding:"8px 12px",borderRadius:"2px"}}> 
-                        <ChartAverage data={averageData}/>
-                    </Paper>
+                <Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",padding:"25px"}}>
+                    <Box>
+                        <StatsNotePaper average={studentMaxAverage} type="Student Max Average"  color="rgb(255, 99, 132)"/>
+                        <StatsNotePaper average={studentMinAverage} type="Student Min Average" color="rgb(54, 162, 235)"/>
+                        <StatsNotePaper average={classAverage} type="Class Average" color="rgb(255, 205, 86)"/>
+                    </Box>
+                    <Box>
+                        <Box  style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly",alignContent:"center",padding:"10px",height:"380px",marginTop:"20px"}}>
+                            <Box style={{width:"400px",height:"400px",borderRadius:"2px",padding:"2px 6px"}}> 
+                                <ChartAverage data={averageData}/>
+                            </Box>
+                            <Paper elevation={0} style={{width:"350px",padding:"8px 12px",borderRadius:"2px",display:"flex",justifyContent:"space-between",flexDirection:"column",marginTop:"20px"}}>
+                                 <StatsNotePaper average={nbPassant} type="Number of repeating students"  color="#ff8b8b"/>
+                                 <StatsNotePaper average={nbRedoublant} type="Number of students admitted" color="#3b3b3b"/>
+                            </Paper>
+                        </Box>
+                    </Box>
                 </Box>
             </MainLayout>
         </>

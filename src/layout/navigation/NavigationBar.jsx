@@ -24,9 +24,7 @@ function NavigationBar() {
                 flexShrink: 0,
                 '& .MuiDrawer-paper': {
                     width: "250px",
-                    // backgroundColor: "rgb(101, 53, 192)",
                     backgroundColor:"rgb(54, 162, 235)",
-                    // backgroundColor: "#f1f6fa",
                     boxSizing: 'border-box',
                     borderWidth:0
                 }
