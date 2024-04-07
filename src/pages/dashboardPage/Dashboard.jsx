@@ -1,5 +1,5 @@
 import MainLayout from "./../../layout/MainLayout";
-import { Box } from '@material-ui/core';
+import { Box , Skeleton } from '@mui/material';
 import StatsNotePaper from "../../components/StatsNotePaper";
 import ChartAverage from "../../components/ChartAverage";
 import { Paper, Typography } from "@mui/material";
@@ -16,7 +16,7 @@ function Dashboard(){
     const [studentMinAverage,setStudentMinAverage] = useState(0);
     const [nbPassant, setNbPassant] = useState(0);
     const [nbRedoublant, setNbRedoublant] = useState(0);
-
+    const [ loading , setLoading ] = useState(true);
 
     useEffect(() => {
         const fetchAverageNotes = async () => {
@@ -25,6 +25,8 @@ function Dashboard(){
                 setAverageList(data.map((average) => average.average_note));
             } catch (err) {
                 console.error("Error occurred during the fetch Average list: " + err);
+            }finally{
+                setLoading(false);
             }
         };
         fetchAverageNotes();
@@ -68,22 +70,63 @@ function Dashboard(){
     return <>
             <MainLayout>
                 <Box style={{paddingLeft:"25px"}}>
-                    <Typography variant="h4" color="primary">Student statistics</Typography>
+                    {loading ? 
+                    <Typography variant="h3">
+                        <Skeleton width="25%" />
+                    </Typography>
+                    :<Typography variant="h4" color="primary">Student statistics</Typography>
+                    }
                 </Box>
                 <Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",padding:"25px"}}>
                     <Box>
-                        <StatsNotePaper average={studentMaxAverage} type="Student Max Average"  color="rgb(255, 99, 132)"/>
-                        <StatsNotePaper average={studentMinAverage} type="Student Min Average" color="rgb(54, 162, 235)"/>
-                        <StatsNotePaper average={classAverage} type="Class Average" color="rgb(255, 205, 86)"/>
+                        {loading ? 
+                        (<Box>
+                            <Skeleton  width="300px"variant="rect" sx={{height:"200px"}}/>
+                            <Skeleton  width="300px" variant="rect" sx={{height:"200px",marginTop:"10px"}}/> 
+                            <Skeleton  width="300px" variant="rect" sx={{height:"200px",marginTop:"10px"}}/> 
+                        </Box>
+                        ):(
+                        <>
+                            <StatsNotePaper average={studentMaxAverage ?? 0 } type="Student Max Average"  color="rgb(255, 99, 132)"/>
+                            <StatsNotePaper average={studentMinAverage ?? 0} type="Student Min Average" color="rgb(54, 162, 235)"/>
+                            <StatsNotePaper average={Number.isNaN(classAverage) ? 0:classAverage} type="Class Average" color="rgb(255, 205, 86)"/>
+                        </>
+                        )
+                        }
                     </Box>
                     <Box>
                         <Box  style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly",alignContent:"center",padding:"10px",height:"380px",marginTop:"20px"}}>
                             <Box style={{width:"400px",height:"400px",borderRadius:"2px",padding:"2px 6px"}}> 
+                            {loading ?
+                            (<>
+                                <Typography variant="h3">
+                                  <Skeleton width="80%"/>
+                                </Typography>
+                                <Box>
+                                    <Typography variant="body1">
+                                               <Skeleton width="90%"/>
+                                               <Skeleton width="90%"/>
+                                    </Typography>
+                                </Box>
+                                <Box>
+                                    <Skeleton variant="circle" sx={{height:"300px",width:"300px",borderRadius:"300px",margin:"25px 25px"}}/> 
+                                </Box>
+                            </>):
                                 <ChartAverage data={averageData}/>
+                            }
                             </Box>
                             <Paper elevation={0} style={{width:"350px",padding:"8px 12px",borderRadius:"2px",display:"flex",justifyContent:"space-between",flexDirection:"column",marginTop:"20px"}}>
-                                 <StatsNotePaper average={nbPassant} type="Number of repeating students"  color="#ff8b8b"/>
-                                 <StatsNotePaper average={nbRedoublant} type="Number of students admitted" color="#3b3b3b"/>
+                                {loading ? 
+                                (
+                                <>
+                                <Skeleton  width="300px"variant="rect" sx={{height:"200px"}}/>
+                                <Skeleton  width="300px" variant="rect" sx={{height:"200px",marginTop:"10px"}}/>
+                                </>)
+                                :<>
+                                    <StatsNotePaper average={nbPassant ?? 0} type="Number of repeating students"  color="#ff8b8b"/>
+                                    <StatsNotePaper average={nbRedoublant ?? 0} type="Number of students admitted" color="#3b3b3b"/>
+                                </>
+                                }
                             </Paper>
                         </Box>
                     </Box>

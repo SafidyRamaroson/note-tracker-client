@@ -8,8 +8,8 @@ import {
     Divider,
     Drawer
 } from "@mui/material";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import PeopleIcon from "@material-ui/icons/People";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PeopleIcon from "@mui/icons-material/People";
 
 
 function NavigationBar() {

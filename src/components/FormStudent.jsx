@@ -27,7 +27,7 @@ function FormStudent({isOpenForm,isEdit,student,onClose}){
         }else{
             setInitialValues({...initialValuesSaveNote});
         }
-    },[isEdit]);
+    },[student,isEdit]);
 
     const handleClickCancel = () => {
         setOpenForm(false);

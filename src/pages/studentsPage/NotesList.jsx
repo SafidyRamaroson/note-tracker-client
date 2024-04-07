@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../../const/baseURL.js';
 import { StudentsServices } from '../../services/index.js';
 import MainLayout from '../../layout/MainLayout';
-import { Table, TableBody, TableCell, TableHead, TableRow, Button, Box, Typography,Paper} from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow, Button, Box, Typography,Paper} from '@mui/material';
 import StyledTableContainer from './NotesList.styled';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
 import FormStudent from '../../components/FormStudent.jsx';
-
+import Tooltip from '@mui/material/Tooltip';
+import {Skeleton } from '@mui/material';
 
 
 function NotesList() {
@@ -27,8 +28,11 @@ function NotesList() {
     const [nbPassant, setNbPassant] = useState(0);
     const [nbRedoublant, setNbRedoublant] = useState(0);
     const [loading,setLoading] = useState(false);
+    const [loadingData,setLoadingData] = useState(true);
+
     useEffect(() => {
         StudentsServices.fetchAllStudent(`${BASE_URL}/students/notes`, setStudentsList);
+        setLoadingData(false);
     }, [student]); 
 
     useEffect(() => {
@@ -65,12 +69,12 @@ function NotesList() {
         <>
             <MainLayout>
                <Box style={{display: "flex",alignItems: "center",justifyContent:"space-between",margin:"10px"}}>
-                    <Typography variant="h4" component="h6" style={{color:"rgb(54, 162, 235)"}}>Students List</Typography>
-                    {loading &&<Paper style={{padding:"10px"}} variant={2}>Deletion in Progress ...</Paper>}
-                    <Button color="primary" variant="outlined" onClick={handleOpenForm}>
-                         <AddIcon />
-                         New Student
-                    </Button>
+                    <Typography variant="h4" component="h6" style={{color:"rgb(54, 162, 235)"}}>
+                        {loadingData ? <Skeleton width="200px"/> : "Students List"}</Typography>
+                    {loading &&<Paper style={{padding:"10px"}} variant={4}>Deletion in Progress ...</Paper>}
+                    {loadingData ? <Skeleton width="70px" height="70px"/>:<Button color="primary" variant="outlined" onClick={handleOpenForm}><AddIcon />
+                           New Student
+                    </Button>}
                </Box>
                 <StyledTableContainer>
                     <Table>
@@ -85,38 +89,55 @@ function NotesList() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {studentsList.map((student, index) => (
+                            {studentsList?.map((student, index) => (
                                 <TableRow key={index}>
-                                    <TableCell>{student.id_student}</TableCell>
-                                    <TableCell>{student.name}</TableCell>
-                                    <TableCell>{student.note_Math}</TableCell>
-                                    <TableCell>{student.note_Phy}</TableCell>
-                                    <TableCell>{((student.note_Math + student.note_Phy) / 2).toFixed(2)}</TableCell>
+                                    <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.id_student}</TableCell>
+                                    <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.name}</TableCell>
+                                    <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.note_Math}</TableCell>
+                                    <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.note_Phy}</TableCell>
+                                    <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: ((student.note_Math + student.note_Phy) / 2).toFixed(2)}</TableCell>
                                     <TableCell>
                                     <Box style={{ display: 'flex', alignItems: 'center' }}>
-                                             <Button
+                                        <Tooltip title="Delete">
+                                            {loadingData ? 
+                                            (
+                                            <Skeleton width="70px" height="70px"/>
+                                            ):(
+                                                <Button
+                                                  border="dotted"
                                                   variant="contained"
-                                                  color="secondary"
-                                                  startIcon={<DeleteIcon />}
+                                                  color="error"
                                                   onClick={() => StudentsServices.deleteOneStudent(student,setStudent,setLoading)}
-                                             >
-                                                  Delete
-                                             </Button>
-                                             <Button
+                                                  style={{ padding:"12px 0px"}}
+                                                >
+                                                <DeleteIcon/>
+                                            </Button>
+                                            )
+                                            }
+                                             
+                                        </Tooltip>
+                                        <Tooltip title="Edit" border="dotted">
+                                            {loadingData ?
+                                            (
+                                                <Skeleton width="70px" height="70px" sx={{marginLeft:"10px"}}/>
+                                            ):(
+                                                <Button
                                                   variant="contained"
                                                   color="primary"
-                                                  startIcon={<EditIcon />}
                                                   onClick={() => handleOnClickEdit(student)}
-                                                  style={{ marginLeft: '10px' }}
-                                             >
-                                                  Edit
-                                             </Button>
+                                                  style={{ marginLeft: '10px',padding:"12px 0px"}}
+                                            >
+                                                <EditIcon/>
+                                            </Button>
+                                            )
+                                            }
+                                        </Tooltip>
                                    </Box>
                               </TableCell>
                          </TableRow>
                             ))}
-                        </TableBody>
-                    </Table>
+                            </TableBody>
+                            </Table>
                 </StyledTableContainer>
                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                     <Paper style={{ border: "2px solid #FFC0CB", padding: '10px', borderRadius: '5px' }}>
