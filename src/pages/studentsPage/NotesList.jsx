@@ -88,21 +88,40 @@ function NotesList() {
                                 <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
-                            {studentsList?.map((student, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.id_student}</TableCell>
+                        {loadingData ? 
+                        (
+                            <TableBody>
+                                <TableRow>
+                                <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.id_student}</TableCell>
                                     <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.name}</TableCell>
                                     <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.note_Math}</TableCell>
                                     <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: student.note_Phy}</TableCell>
                                     <TableCell>{loadingData ? <Skeleton variant="rectangular" width="100%"/>: ((student.note_Math + student.note_Phy) / 2).toFixed(2)}</TableCell>
+                                    <TableCell> 
+                                        <Box style={{ display: 'flex', alignItems: 'center' }}>
+                                            <Tooltip title="Delete">
+                                                <Skeleton width="70px" height="70px"/>
+                                            </Tooltip>
+                                            <Tooltip title="Edit" border="dotted">
+                                                <Skeleton width="70px" height="70px" sx={{marginLeft:"10px"}}/>
+                                            </Tooltip>
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        ):(
+                      
+                        <TableBody>
+                            {studentsList?.map((student, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{student.id_student}</TableCell>
+                                    <TableCell>{student.name}</TableCell>
+                                    <TableCell>{student.note_Math}</TableCell>
+                                    <TableCell>{student.note_Phy}</TableCell>
+                                    <TableCell>{((student.note_Math + student.note_Phy) / 2).toFixed(2)}</TableCell>
                                     <TableCell>
-                                    <Box style={{ display: 'flex', alignItems: 'center' }}>
-                                        <Tooltip title="Delete">
-                                            {loadingData ? 
-                                            (
-                                            <Skeleton width="70px" height="70px"/>
-                                            ):(
+                                        <Box style={{ display: 'flex', alignItems: 'center' }}>
+                                           <Tooltip title="Delete">
                                                 <Button
                                                   border="dotted"
                                                   variant="contained"
@@ -110,50 +129,56 @@ function NotesList() {
                                                   onClick={() => StudentsServices.deleteOneStudent(student,setStudent,setLoading)}
                                                   style={{ padding:"12px 0px"}}
                                                 >
-                                                <DeleteIcon/>
-                                            </Button>
-                                            )
-                                            }
-                                             
-                                        </Tooltip>
-                                        <Tooltip title="Edit" border="dotted">
-                                            {loadingData ?
-                                            (
-                                                <Skeleton width="70px" height="70px" sx={{marginLeft:"10px"}}/>
-                                            ):(
+                                                    <DeleteIcon/>
+                                                </Button>                                
+                                            </Tooltip>
+                                            <Tooltip title="Edit" border="dotted">
                                                 <Button
                                                   variant="contained"
                                                   color="primary"
                                                   onClick={() => handleOnClickEdit(student)}
                                                   style={{ marginLeft: '10px',padding:"12px 0px"}}
-                                            >
+                                                >
                                                 <EditIcon/>
-                                            </Button>
-                                            )
-                                            }
-                                        </Tooltip>
-                                   </Box>
-                              </TableCell>
-                         </TableRow>
+                                                </Button>
+                                            </Tooltip>
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
                             ))}
-                            </TableBody>
+                            </TableBody>)}
                             </Table>
                 </StyledTableContainer>
                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                     <Paper style={{ border: "2px solid #FFC0CB", padding: '10px', borderRadius: '5px' }}>
-                         <Typography component="h2" style={{color:"#FFC0CB"}}>Class Average: { isNaN(classAverage)? 0:classAverage}</Typography>
+                        {loadingData ? 
+                        <Skeleton variant='rectangular' width="100px" height="25px"/>:
+                        <Typography component="h5" style={{color:"#FFC0CB"}}>Class Average: { isNaN(classAverage)? 0:classAverage}</Typography>
+                        }
                     </Paper>
                     <Paper style={{ border: "2px solid #87CEEB", padding: '10px', borderRadius: '5px' }}>
-                         <Typography component="h2" style={{color:"#87CEEB"}}>Student Min Average: {(studentMinAverage ==="Infinity") ? 0:studentMinAverage}</Typography>
+                    {loadingData ? 
+                        <Skeleton variant='rectangular' width="100px" height="25px"/>:
+                        <Typography component="h5" style={{color:"#87CEEB"}}>Student Min Average: {(studentMinAverage ==="Infinity") ? 0:studentMinAverage}</Typography>
+                    }
                     </Paper>
                     <Paper style={{ border: "2px solid #98FB98", padding: '10px', borderRadius: '5px' }}>
-                         <Typography component="h2" style={{color:"#98FB98"}}>Student Max Average: {(studentMaxAverage ==="Infinity") ? 0:studentMaxAverage}</Typography>
+                    {loadingData ? 
+                        <Skeleton variant='rectangular' width="100px" height="25px"/>:
+                        <Typography component="h5" style={{color:"#98FB98"}}>Student Max Average: {(studentMaxAverage ==="Infinity") ? 0:studentMaxAverage}</Typography>
+                        }
                     </Paper>
                     <Paper style={{ border: "2px solid #FFD700", padding: '10px', borderRadius: '5px' }}>
-                         <Typography component="h2" style={{color:"#FFD700"}}>Number of Passant: {nbPassant}</Typography>
+                    {loadingData ? 
+                        <Skeleton variant='rectangular' width="100px" height="25px"/>:
+                        <Typography component="h5" style={{color:"#FFD700"}}>Number of Passant: {nbPassant}</Typography>
+                        }
                     </Paper>
                     <Paper style={{ border: "3px solid #FFA07A", padding: '10px', borderRadius: '5px' }}>
-                         <Typography component="h2" style={{color:"#FFA07A"}}>Number of Redoublant: {nbRedoublant}</Typography>
+                    {loadingData ? 
+                        <Skeleton variant='rectangular' width="100px" height="25px"/>:
+                        <Typography component="h5" style={{color:"#FFA07A"}}>Number of Redoublant: {nbRedoublant}</Typography>
+                    }
                     </Paper>
                </Box>
             </MainLayout>

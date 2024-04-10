@@ -10,7 +10,7 @@ import { BASE_URL } from "./../../const/baseURL";
 
 function Dashboard(){
     const [averageList, setAverageList] = useState([]);
-    const [averageData, setAverageData] = useState(null);
+    const [averageData, setAverageData] = useState(0);
     const [classAverage,setClassAverage ] = useState(0);
     const [studentMaxAverage,setStudentMaxAverage] = useState(0);
     const [studentMinAverage,setStudentMinAverage] = useState(0);
@@ -77,13 +77,13 @@ function Dashboard(){
                     :<Typography variant="h4" color="primary">Student statistics</Typography>
                     }
                 </Box>
-                <Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",padding:"25px"}}>
-                    <Box>
+                <Box style={{display:"flex",flexDirection:"column",alignItems:"flex-start",padding:"25px"}}>
+                    <Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",gap:"25px"}}>
                         {loading ? 
-                        (<Box>
+                        (<Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",padding:"25px",gap:"25px"}}>
                             <Skeleton  width="300px"variant="rect" sx={{height:"200px"}}/>
-                            <Skeleton  width="300px" variant="rect" sx={{height:"200px",marginTop:"10px"}}/> 
-                            <Skeleton  width="300px" variant="rect" sx={{height:"200px",marginTop:"10px"}}/> 
+                            <Skeleton  width="300px" variant="rect" sx={{height:"200px"}}/> 
+                            <Skeleton  width="300px" variant="rect" sx={{height:"200px"}}/> 
                         </Box>
                         ):(
                         <>
@@ -95,8 +95,8 @@ function Dashboard(){
                         }
                     </Box>
                     <Box>
-                        <Box  style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly",alignContent:"center",padding:"10px",height:"380px",marginTop:"20px"}}>
-                            <Box style={{width:"400px",height:"400px",borderRadius:"2px",padding:"2px 6px"}}> 
+                        <Box  style={{display:"flex",flexDirection:"row",justifyContent:"space-evenly",alignItems:"center",width:"990px"}}>
+                            <Box style={{width:"400px",borderRadius:"2px",padding:"2px 6px"}}> 
                             {loading ?
                             (<>
                                 <Typography variant="h3">
@@ -104,12 +104,12 @@ function Dashboard(){
                                 </Typography>
                                 <Box>
                                     <Typography variant="body1">
-                                               <Skeleton width="90%"/>
-                                               <Skeleton width="90%"/>
+                                               <Skeleton width="70%"/>
+                                               <Skeleton width="70%"/>
                                     </Typography>
                                 </Box>
                                 <Box>
-                                    <Skeleton variant="circle" sx={{height:"300px",width:"300px",borderRadius:"300px",margin:"25px 25px"}}/> 
+                                    <Skeleton variant="circle" sx={{height:"250px",width:"250px",borderRadius:"250px",margin:"25px 25px"}}/> 
                                 </Box>
                             </>):
                                 <ChartAverage data={averageData}/>
@@ -119,12 +119,12 @@ function Dashboard(){
                                 {loading ? 
                                 (
                                 <>
-                                <Skeleton  width="300px"variant="rect" sx={{height:"200px"}}/>
-                                <Skeleton  width="300px" variant="rect" sx={{height:"200px",marginTop:"10px"}}/>
+                                <Skeleton  width="300px"variant="rect" sx={{height:"150px"}}/>
+                                <Skeleton  width="300px" variant="rect" sx={{height:"150px",marginTop:"10px"}}/>
                                 </>)
                                 :<>
-                                    <StatsNotePaper average={nbPassant ?? 0} type="Number of repeating students"  color="#ff8b8b"/>
-                                    <StatsNotePaper average={nbRedoublant ?? 0} type="Number of students admitted" color="#3b3b3b"/>
+                                    <StatsNotePaper average={nbPassant ?? 0} type="Number of Passant " color="#3b3b3b"/>
+                                    <StatsNotePaper average={nbRedoublant ?? 0} type="Number of redoublant"  color="#ff8b8b"/>
                                 </>
                                 }
                             </Paper>
