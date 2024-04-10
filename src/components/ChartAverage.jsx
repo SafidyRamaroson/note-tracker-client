@@ -23,10 +23,10 @@ function ChartAverage({data}) {
                 type: 'doughnut',
                 data: {
                     labels: [
-                        'Average :[0-5]',
-                        'Average :[6-10]',
-                        'Average : [11-15]',
-                        'Average : [16-20]',
+                        'Average :[0-5] = '+averageData[0],
+                        'Average :[6-10]  = '+averageData[1],
+                        'Average : [11-15] =  '+averageData[2],
+                        'Average : [16-20] = '+averageData[3],
                         ],
                     datasets: [{
                         label: 'Number of Students:',

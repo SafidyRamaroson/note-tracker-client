@@ -20,10 +20,10 @@ function NavigationBar() {
         <Drawer
             variant="permanent"
             sx={{
-                width: "250px",
+                width: "200px",
                 flexShrink: 0,
                 '& .MuiDrawer-paper': {
-                    width: "250px",
+                    width: "200px",
                     backgroundColor:"rgb(54, 162, 235)",
                     boxSizing: 'border-box',
                     borderWidth:0

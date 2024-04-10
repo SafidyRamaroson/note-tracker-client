@@ -78,12 +78,12 @@ function Dashboard(){
                     }
                 </Box>
                 <Box style={{display:"flex",flexDirection:"column",alignItems:"flex-start",padding:"25px"}}>
-                    <Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",gap:"25px"}}>
+                    <Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",gap:"50px"}}>
                         {loading ? 
-                        (<Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",padding:"25px",gap:"25px"}}>
-                            <Skeleton  width="300px"variant="rect" sx={{height:"200px"}}/>
-                            <Skeleton  width="300px" variant="rect" sx={{height:"200px"}}/> 
-                            <Skeleton  width="300px" variant="rect" sx={{height:"200px"}}/> 
+                        (<Box style={{display:"flex",flexDirection:"row",alignItems:"flex-start",padding:"25px",gap:"50px"}}>
+                            <Skeleton  width="250px"variant="rect" sx={{height:"120px"}}/>
+                            <Skeleton  width="250px" variant="rect" sx={{height:"120px"}}/> 
+                            <Skeleton  width="250px" variant="rect" sx={{height:"120px"}}/> 
                         </Box>
                         ):(
                         <>
@@ -119,8 +119,8 @@ function Dashboard(){
                                 {loading ? 
                                 (
                                 <>
-                                <Skeleton  width="300px"variant="rect" sx={{height:"150px"}}/>
-                                <Skeleton  width="300px" variant="rect" sx={{height:"150px",marginTop:"10px"}}/>
+                                <Skeleton  width="250px"variant="rect" sx={{height:"120px"}}/>
+                                <Skeleton  width="250px" variant="rect" sx={{height:"120px",marginTop:"10px"}}/>
                                 </>)
                                 :<>
                                     <StatsNotePaper average={nbPassant ?? 0} type="Number of Passant " color="#3b3b3b"/>

@@ -59,6 +59,8 @@ function NotesList() {
         setIsEdit(false);
     };
 
+    console.log("Is"+isOpenForm);
+
     const handleOnClickEdit = (studentToEdit) => {
         setIsOpenForm(true);
         setIsEdit(true);
